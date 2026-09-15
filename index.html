@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plague D Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="topbar">
+    <div class="brand">
+      <img src="plague_logo.png" alt="Plague D Studio logo">
+      <div><span>PLAGUE D</span><strong>STUDIO</strong></div>
+    </div>
+    <div class="project-meta"><span class="live-dot"></span><span>NEW SESSION</span><b>/</b><span id="projectName">Untitled riff</span></div>
+    <div class="top-actions"><button class="icon-button" title="Settings">⚙</button><button class="save-button">Save session <span>⌘S</span></button></div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav-item active"><span class="nav-icon">◈</span>Transcribe <kbd>1</kbd></button>
+      <button class="nav-item"><span class="nav-icon">♫</span>My projects <em>3</em></button>
+      <button class="nav-item"><span class="nav-icon">⌁</span>Recordings <em>8</em></button>
+      <div class="side-divider"></div>
+      <div class="side-label">TOOLS</div>
+      <button class="nav-item" data-scroll="tuner"><span class="nav-icon">◒</span>Guitar tuner</button>
+      <button class="nav-item" data-scroll="lyrics"><span class="nav-icon">Aa</span>Lyrics editor</button>
+      <div class="side-footer"><div class="avatar">JD</div><div><strong>J. Doe</strong><small>Creator plan</small></div><span class="more">•••</span></div>
+    </aside>
+
+    <section class="content">
+      <div class="content-head">
+        <div><p class="eyebrow">TRANSCRIPTION LAB / 01</p><h1>Turn sound into <i>strings.</i></h1><p class="subhead">Drop in a recording and shape the notes, words, and feel into something playable.</p></div>
+        <div class="head-stats"><div><span>KEY</span><strong>Am</strong></div><div><span>BPM</span><strong>92</strong></div><div><span>TUNING</span><strong>Standard</strong></div></div>
+      </div>
+
+      <div class="upload-zone" id="uploadZone">
+        <div class="upload-icon">↑</div><div><strong>Drop a recording here</strong><span>or <button id="browseButton">browse your files</button> · MP3, WAV, M4A up to 100 MB</span></div><button class="browse-button" id="chooseFileButton">Choose audio file</button><button class="transcribe-button" id="transcribeButton" disabled>Transcribe recording <span>↗</span></button>
+        <input type="file" id="fileInput" accept="audio/*" hidden>
+        <div class="waveform faint"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+
+      </div>
+      <div class="section-heading"><div><span class="section-number">01</span><h2>Transcription preview</h2></div><span class="confidence"><span></span> 94% confidence</span></div>
+      <div class="transcription-card">
+        <div class="trackbar"><button class="play-button" id="playButton">▶</button><span id="timeCurrent">00:14</span><div class="progress"><b id="progressBar"></b><i></i></div><span>03:42</span><button class="small-icon">↗</button><button class="small-icon">•••</button></div>
+        <div class="tab-scroll"><div class="tab-lines"><div class="tab-label">e</div><div class="tab-row"><span>--</span><b>5</b><span>--</span><span>7</span><span>--</span><b>5</b><span>-----</span><span>3</span><span>--</span><span>5</span><span>--</span></div><div class="tab-label">B</div><div class="tab-row"><span>--</span><span>--</span><b>5</b><span>--</span><span>--</span><span>8</span><span>------</span><b>5</b><span>--</span><span>--</span></div><div class="tab-label">G</div><div class="tab-row"><span>--</span><span>7</span><span>--</span><span>5</span><span>--</span><span>7</span><span>------</span><span>--</span><b>5</b><span>--</span></div><div class="tab-label">D</div><div class="tab-row"><span>--</span><span>--</span><span>--</span><span>--</span><span>--</span><span>--</span><span>------</span><span>--</span><span>--</span><span>--</span></div><div class="tab-label">A</div><div class="tab-row muted"><span>--</span><span>--</span><span>--</span><span>--</span><span>--</span><span>--</span><span>------</span><span>--</span><span>--</span><span>--</span></div><div class="tab-label">E</div><div class="tab-row muted"><span>--</span><span>--</span><span>--</span><span>--</span><span>--</span><span>--</span><span>------</span><span>--</span><span>--</span><span>--</span></div></div></div>
+        <div class="tab-footer"><span><i class="gold-dot"></i> Click any note to edit</span><button id="exportButton">Export tab <span>↓</span></button></div>
+      </div>
+
+      <div class="lower-grid" id="lyrics">
+        <section class="panel lyrics-panel"><div class="panel-head"><div><span class="section-number">02</span><h2>Lyrics</h2></div><button class="text-button">Edit lyrics <span>↗</span></button></div><div class="lyrics-text"><p class="active-line">I hear the static in the walls</p><p>Like distant thunder, soft and low</p><p>We leave a light on in the hall</p><p>For every place we used to know</p></div><div class="lyrics-foot"><span><i class="gold-dot"></i> Synced to transcription</span><span>4 lines</span></div></section>
+        <section class="panel tuner-panel" id="tuner"><div class="panel-head"><div><span class="section-number">03</span><h2>Guitar tuner</h2></div><button class="tuner-mode">CHROMATIC⌄</button></div><div class="tuner-display"><div class="needle-scale"><span>♭</span><i class="needle"></i><span>♯</span></div><strong id="noteName">A</strong><span id="tuneMessage">Perfectly in tune</span><div class="hz">440 <small>HZ</small></div></div><div class="string-row"><button class="string active">E<span>82.4 Hz</span></button><button class="string">A<span>110 Hz</span></button><button class="string">D<span>146.8 Hz</span></button><button class="string">G<span>196 Hz</span></button><button class="string">B<span>246.9 Hz</span></button><button class="string">e<span>329.6 Hz</span></button></div></section>
+      </div>
+    </section>
+  </main>
+  <div class="toast" id="toast">Session saved locally</div>
+  <style>
+    .transcription-card { width: 100%; overflow: hidden; }
+    .tab-scroll { min-height: 190px; }
+    .tab-lines { min-width: 760px; row-gap: 14px; }
+    .lower-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+    .panel { min-height: 280px; }
+    @media (max-width: 900px) {
+      .upload-zone { height: auto; min-height: 150px; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 12px; align-content: center; }
+      .upload-zone > div:nth-of-type(2) { min-width: 0; }
+      .upload-zone > div:nth-of-type(2) span { white-space: normal; line-height: 1.4; }
+      .transcribe-button { grid-column: 2; justify-self: start; }
+      .upload-zone .waveform { position: static; inset: auto; grid-column: 1 / -1; width: 100%; height: 30px; margin: 0; justify-content: space-between; }
+      .section-heading { margin-top: 32px; }
+      .lower-grid { grid-template-columns: 1fr; }
+      .tab-lines { min-width: 680px; }
+    }
+  </style>
+  <script src="app.js"></script>
+</body>
+</html>

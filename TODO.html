@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plague D Studio | Build checklist</title>
+  <style>
+    :root { --ink: #11110f; --paper: #eee9de; --muted: #a39b8d; --gold: #d6aa43; --line: #3b3831; --red: #8c3031; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: radial-gradient(circle at top right, #30291e, var(--ink) 48%); color: var(--paper); font: 16px Georgia, serif; }
+    main { width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: 56px 0 72px; }
+    .eyebrow { color: var(--gold); font: 11px monospace; letter-spacing: .2em; }
+    h1 { margin: 12px 0 8px; font-size: clamp(36px, 7vw, 72px); font-weight: 400; }
+    .intro { max-width: 620px; color: var(--muted); line-height: 1.6; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 32px 0 18px; }
+    button { border: 1px solid var(--line); background: #191814; color: var(--paper); padding: 10px 13px; cursor: pointer; }
+    button:hover { border-color: var(--gold); color: var(--gold); }
+    .progress { margin-left: auto; color: var(--gold); font: 12px monospace; }
+    section { border-top: 1px solid var(--line); padding: 22px 0; }
+    h2 { margin: 0 0 14px; font-size: 22px; font-weight: 400; }
+    label { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; color: var(--muted); line-height: 1.4; cursor: pointer; }
+    label.done { color: #777166; text-decoration: line-through; }
+    input { accent-color: var(--gold); margin-top: 4px; }
+    .tag { color: var(--gold); font: 10px monospace; margin-left: 6px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">PLAGUE D STUDIO / HANDOFF CHECKLIST</div>
+    <h1>Make the idea playable.</h1>
+    <p class="intro">A living build list for the browser studio: capture the song, separate the parts, shape the performance, and package the result.</p>
+    <div class="toolbar">
+      <button id="resetButton" type="button">Reset checklist</button>
+      <button id="clearButton" type="button">Clear completed</button>
+      <span class="progress" id="progress">0 / 0 complete</span>
+    </div>
+    <div id="checklist"></div>
+  </main>
+  <script>
+    const sections = [
+      ['Working foundation', [
+        ['Make every tab note editable', 'near-term'],
+        ['Persist manual tab corrections in the session', 'near-term'],
+        ['Add an import session flow', 'near-term'],
+        ['Add keyboard shortcuts for playback and save', 'polish']
+      ]],
+      ['Stems and guitars', [
+        ['Upload multiple stems at once', 'core'],
+        ['Name and reorder guitar tracks', 'core'],
+        ['Mute, solo, and adjust gain per track', 'core'],
+        ['Choose one stem as the transcription target', 'core'],
+        ['Store tuning per guitar track', 'core']
+      ]],
+      ['Song intelligence', [
+        ['Replace pitch list with timed note events', 'audio'],
+        ['Detect chord and power-chord candidates', 'audio'],
+        ['Add live microphone note detection', 'audio'],
+        ['Suggest lyric phrasing, rhyme, and syllable alternatives', 'lyrics'],
+        ['Add song sections and arrangement notes', 'workflow']
+      ]],
+      ['Mastering-inspired workflow', [
+        ['Select a representative preview range', 'mastering'],
+        ['Find a dynamic-range sweet spot', 'mastering'],
+        ['Compare original and processed previews', 'mastering'],
+        ['Add clearly labeled processing presets', 'mastering'],
+        ['Export a demo package with audio and metadata', 'release']
+      ]]
+    ];
+    const storageKey = 'plagueD.todo';
+    const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    const list = document.querySelector('#checklist');
+    let itemIndex = 0;
+    for (const [title, items] of sections) {
+      const section = document.createElement('section');
+      section.innerHTML = `<h2>${title}</h2>`;
+      for (const [text, tag] of items) {
+        const id = `item-${itemIndex++}`;
+        const label = document.createElement('label');
+        label.innerHTML = `<input type="checkbox" data-id="${id}"><span>${text}<span class="tag">${tag}</span></span>`;
+        const checkbox = label.querySelector('input');
+        checkbox.checked = Boolean(saved[id]);
+        label.classList.toggle('done', checkbox.checked);
+        checkbox.addEventListener('change', () => {
+          saved[id] = checkbox.checked;
+          label.classList.toggle('done', checkbox.checked);
+          localStorage.setItem(storageKey, JSON.stringify(saved));
+          updateProgress();
+        });
+        section.append(label);
+      }
+      list.append(section);
+    }
+    function updateProgress() {
+      const boxes = [...document.querySelectorAll('input[type="checkbox"]')];
+      document.querySelector('#progress').textContent = `${boxes.filter(box => box.checked).length} / ${boxes.length} complete`;
+    }
+    document.querySelector('#resetButton').addEventListener('click', () => {
+      localStorage.removeItem(storageKey);
+      document.querySelectorAll('input[type="checkbox"]').forEach(box => { box.checked = false; box.closest('label').classList.remove('done'); });
+      updateProgress();
+    });
+    document.querySelector('#clearButton').addEventListener('click', () => {
+      document.querySelectorAll('input:checked').forEach(box => box.click());
+    });
+    updateProgress();
+  </script>
+</body>
+</html>
